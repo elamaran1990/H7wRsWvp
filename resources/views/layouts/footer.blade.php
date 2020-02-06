@@ -47,7 +47,30 @@
 
   <!-- Bootstrap core JavaScript -->
   <script src="/js/app.js"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+               crossorigin="anonymous">
+</script>
   <script type="text/javascript">
     $(document).ready(function(){ console.log('loaded');});
+
+    $("#vehicle_make").on('change',function(e){
+      e.preventDefault();
+      var id = $(this).val();
+      $.ajax({
+        type:'get',
+        url:"{{ route('get_vehicle') }}",
+        data:{'id':id},
+        dataType:'json',
+        success:function(res){
+          var str = `<option value="">Select Vehicle Model</option>`;
+          $.each(res, function(key, val){
+            str += `<option value="${val.id}">${val.title}</option>`;
+          });
+          console.log(str);
+          $("#vehicle_model").html(str);
+        }
+      })
+    })
   </script>
   @stack('scripts')

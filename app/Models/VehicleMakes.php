@@ -6,4 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class VehicleMakes extends Model {
   protected $guarded = ['id'];
+
+  public function vehicle()
+    {
+        return $this->hasMany('App\Models\VehicleModels', 'vehicle_make_id', 'id');
+    }
 }
